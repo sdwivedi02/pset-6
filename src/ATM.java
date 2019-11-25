@@ -36,6 +36,10 @@ public class ATM {
 
     public static final double TRANSFER_MIN = 0.00;
 
+    boolean session = true;
+    String accountNoString = "";
+    int pin;
+
     public ATM() {
         in = new Scanner(System.in);
 
