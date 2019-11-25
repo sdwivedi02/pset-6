@@ -52,35 +52,91 @@ public class ATM {
     public void startup() {
         System.out.println("Welcome to the AIT ATM!\n");
 
-        while (true) {
-            System.out.print("Account No.: ");
-            long accountNo = in.nextLong();
+        long accountNo;
+		    int pin;
+		    boolean creatingAccount = true;
 
-            System.out.print("PIN        : ");
-            int pin = in.nextInt();
+        System.out.print("Account No.: ");
+        String accountNoString = in.next();
+        while (!accountNoString.contentEquals("+") && !isValidAcctNo(100000001, 999999999, accountNoString)) {
+			        System.out.print("\nInvalid entry.\n\nAccount No.: ");
+			        accountNoString = in.next();
+		         }
 
-            if (isValidLogin(accountNo, pin)) {
-                System.out.println("\nHello, again, " + activeAccount.getAccountHolder().getFirstName() + "!\n");
+		    while (creatingAccount) {
+			       if (accountNoString.equals("+")) {
+				           createAccount();
+      			       System.out.print("\nAccount No.: ");
+				               while (!accountNoString.contentEquals("+") && !isValidAcctNo(100000001, 999999999, accountNoString)) {
+					                       System.out.print("\nInvalid entry.\n\nAccount No.: ");
+					                            accountNoString = in.next();
+				}
+				accountNoString = in.next();
+			} else if (!(accountNoString.equals("+")) && isNumeric(accountNoString)) {
+				creatingAccount = false;
+			}
+		}
 
-                boolean validLogin = true;
-                while (validLogin) {
-                    switch (getSelection()) {
-                        case VIEW: showBalance(); break;
-                        case DEPOSIT: deposit(); break;
-                        case WITHDRAW: withdraw(); break;
-                        case LOGOUT: validLogin = false; break;
-                        default: System.out.println("\nInvalid selection.\n"); break;
-                    }
-                }
-            } else {
-                if (accountNo == -1 && pin == -1) {
-                    shutdown();
-                } else {
-                    System.out.println("\nInvalid account number and/or PIN.\n");
-                }
-            }
-        }
-    }
+		System.out.print("Pin: ");
+		pin = in.nextInt();
+		while (!isValidPin(1000, 9999, pin)) {
+			       System.out.print("\nInvalid entry.\n\nPin: ");
+			       pin = in.nextInt();
+		}
+
+		accountNo = Long.parseLong(accountNoString);
+
+		while (true) {
+
+			if (accountNo == -1 && pin == -1) {
+				shutdown();
+				return;
+			}
+
+			activeAccount = bank.getAccount(accountNo);
+
+		if (isValidLogin(accountNo, pin)) {
+				System.out.println("\nHello, again, " + activeAccount.getAccountHolder().getFirstName() + "!\n");
+
+				boolean validLogin = true;
+				while (validLogin) {
+					switch (getSelection()) {
+					case VIEW:
+						showBalance();
+						bank.save();
+						break;
+					case DEPOSIT:
+						deposit();
+						bank.save();
+						break;
+					case WITHDRAW:
+						withdraw();
+						bank.save();
+						break;
+					case TRANSFER:
+						transfer();
+						bank.save();
+						break;
+					case LOGOUT:
+						validLogin = false;
+						startup();
+						break;
+					default:
+						System.out.println("\nInvalid selection.\n");
+						break;
+					}
+				}
+			} else {
+				    if (accountNo == -1 && pin == -1) {
+					System.out.println("h");
+					shutdown();
+				    } else {
+					System.out.println("\nInvalid account number and/or PIN.\n");
+					startup();
+				}
+			}
+		}
+  }
 
     public boolean isValidLogin(long accountNo, int pin) {
         return accountNo == activeAccount.getAccountNo() && pin == activeAccount.getPin();
