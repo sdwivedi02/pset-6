@@ -247,6 +247,40 @@ public class ATM {
   		bank.save();
   	}
 
+  public boolean isValidFirst(int min, int max, String firstName) {
+      if (firstName != null && firstName.length() >= min && firstName.length() <= max) {
+        return true;
+      }
+      return false;
+    }
+
+  public boolean isValidLast(int min, int max, String lastName) {
+    if (lastName != null && lastName.length() >= min && lastName.length() <= max) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean isValidPin(int min, int max, int pin) {
+    if (pin == -1 || pin >= min && pin <= max) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean isValidAcctNo(long min, long max, String accountNo) {
+    try {
+      transferAccount = bank.getAccount(Long.parseLong(accountNo));
+      if (Long.parseLong(accountNo) == -1
+          || Long.parseLong(accountNo) >= min && Long.parseLong(accountNo) <= max && isNumeric(accountNo)) {
+            return true;
+          }
+        } catch (NumberFormatException | NullPointerException nfe) {
+          return false;
+        }
+        return false;
+      }
+
     public static void main(String[] args) {
         ATM atm = new ATM();
 
