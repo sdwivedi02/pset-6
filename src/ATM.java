@@ -41,9 +41,12 @@ public class ATM {
     int pin;
 
     public ATM() {
-        in = new Scanner(System.in);
-
-        activeAccount = new BankAccount(1234, 123456789, 0, new User("Sambhavi", "Dwivedi"));
+        this.in = new Scanner(System.in);
+        try {
+        this.bank = new Bank();
+      } catch (IOException e) {
+     // cleanup any resources (i.e., the Scanner) and exit
+      }
     }
 
     public void startup() {
