@@ -36,8 +36,14 @@ public class BankAccount {
     }
 
     public double getBalance() {
-        return balance;
+      NumberFormat currency = NumberFormat.getCurrencyInstance();
+
+      return currency.format(balance);
     }
+
+    public double getDoubleBalance() {
+		return balance;
+	 }
 
     public User getAccountHolder() {
         return accountHolder;
