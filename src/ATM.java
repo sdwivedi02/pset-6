@@ -163,6 +163,9 @@ public class ATM {
       int status = activeAccount.deposit(amount);
       if (status == ATM.INVALID) {
           System.out.println("\nDeposit rejected. Amount must be greater than $0.00.\n");
+      } else if (activeAccount.getDoubleBalance() + amount > 999999999999.99) {
+          System.out.println("\nDeposit rejected. Amount would cause balance to exceed $999,999,999,999.99.\n");
+          activeAccount.withdraw(amount);
       } else if (status == ATM.SUCCESS) {
           System.out.println("\nDeposit accepted.\n");
       }
@@ -181,6 +184,34 @@ public class ATM {
           System.out.println("\nWithdrawal accepted.\n");
       }
     }
+
+  public void transfer() {
+    System.out.print("\nEnter destination account number: ");
+		long toAccountNo = in.nextLong();
+
+  try {
+			transferAccount = bank.getAccount(toAccountNo);
+		} catch (NumberFormatException | NullPointerException nfe) {
+			System.out.println("\nTransfer rejected. Destination account not found.");
+			return;
+    }
+
+    System.out.print("Enter transfer amount: ");
+		double transferAmount = in.nextDouble();
+
+		if (transferAmount <= 0) {
+			System.out.println("\nTransfer rejected. Amount must be greater than $0.00.\n");
+		} else if (activeAccount.getDoubleBalance() < transferAmount) {
+			System.out.println("\nTransfer rejected. Insufficient funds.\n");
+		} else if (transferAccount.getDoubleBalance() + transferAmount > 999999999999.99) {
+			System.out.println(
+					"\nTransfer rejected. Amount would cause destination balance to exceed $999,999,999,999.99.\n");
+		} else {
+			System.out.println("\nTransfer accepted.\n");
+			activeAccount.withdraw(transferAmount);
+			transferAccount.deposit(transferAmount);
+		}
+  }
 
     public void shutdown() {
         if (in != null) {
