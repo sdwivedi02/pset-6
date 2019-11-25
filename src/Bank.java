@@ -141,22 +141,22 @@ public class Bank {
      */
 
     private List<BankAccount> init() {
-        List<BankAccount> accounts = new ArrayList<BankAccount>();
+        		List<BankAccount> accounts = new ArrayList<BankAccount>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(new File(DATA)))) {
+        		try (BufferedReader br = new BufferedReader(new FileReader(new File(DATA)))) {
             String account;
 
-            while ((account = br.readLine()) != null) {
-                accounts.add(Bank.parseBankAccount(account));
-            }
-        } catch (FileNotFoundException e) {
-            System.err.println("Error: Unable to find data file.");
+            		while ((account = br.readLine()) != null) {
+                		accounts.add(Bank.parseBankAccount(account));
+            	}
+        		} catch (FileNotFoundException e) {
+            			System.err.println("Error: Unable to find data file.");
 
-            accounts = null;
-        } catch (IOException e) {
-            System.err.println("Error: Unable to read from data file.");
+            			accounts = null;
+        		} catch (IOException e) {
+            			System.err.println("Error: Unable to read from data file.");
 
-            accounts = null;
+            			accounts = null;
         }
 
         return accounts;
@@ -169,11 +169,11 @@ public class Bank {
      */
 
     private long generateAccountNo() {
-        long accountNo = -1;
+        		long accountNo = -1;
 
-        for (BankAccount account : accounts) {
-            if (account.getAccountNo() > accountNo) {
-                accountNo = account.getAccountNo();
+        		for (BankAccount account : accounts) {
+            		if (account.getAccountNo() > accountNo) {
+                		accountNo = account.getAccountNo();
             }
         }
 
