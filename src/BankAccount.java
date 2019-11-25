@@ -42,7 +42,7 @@ public class BankAccount {
     }
 
     public double getDoubleBalance() {
-		return balance;
+		    return balance;
 	 }
 
     public User getAccountHolder() {
@@ -56,7 +56,7 @@ public class BankAccount {
           balance = balance + amount;
     }
 
-return ATM.SUCCESS;
+        return ATM.SUCCESS;
     }
 
     public void withdraw(double amount) {
@@ -71,9 +71,8 @@ return ATM.SUCCESS;
          return ATM.SUCCESS;
     }
 
-    public String getBalance() {
-      NumberFormat currency = NumberFormat.getCurrencyInstance();
-
-      return currency.format(balance);
-    }
+    @Override
+	    public String toString() {
+		  return String.valueOf(accountNo) + String.valueOf(pin) + accountHolder.serialize() + formatBalance();
+	   }
 }
