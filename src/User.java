@@ -2,6 +2,7 @@ public class User {
 
     private String firstName;
     private String lastName;
+    private String accountHolder;
 
     ////////////////////////////////////////////////////////////////////////////
     //                                                                        //
@@ -31,6 +32,10 @@ public class User {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getAccountHolder() {
+        return accountHolder;
     }
 
 }
