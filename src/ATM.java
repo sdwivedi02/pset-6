@@ -146,13 +146,14 @@ public class ATM {
         System.out.println("[1] View balance");
         System.out.println("[2] Deposit money");
         System.out.println("[3] Withdraw money");
-        System.out.println("[4] Logout");
+        System.out.println("[4] Transfer money");
+        System.out.println("[5] Logout");
 
         return in.nextInt();
     }
 
     public void showBalance() {
-        System.out.println("\nCurrent balance: " + activeAccount.getBalance());
+        System.out.println("\nCurrent balance: " + activeAccount.getBalance() + "\n");
     }
 
     public void deposit() {
