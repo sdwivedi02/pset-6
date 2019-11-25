@@ -9,6 +9,10 @@ public class BankAccount {
     private double balance;
     private User accountHolder;
 
+    private String formatBalance() {
+		    return String.format("%1$15s", balance);
+	}
+
     public BankAccount(int pin, long accountNo, double balance, User accountHolder) {
         this.pin = pin;
         this.accountNo = ++BankAccount.prevAccountNo;
