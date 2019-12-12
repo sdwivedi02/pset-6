@@ -5,41 +5,23 @@ public class ATM {
 
     private Scanner in;
     private BankAccount activeAccount;
+    private Bank bank;
+    private BankAccount transferAccount;
 
     public static final int VIEW = 1;
     public static final int DEPOSIT = 2;
     public static final int WITHDRAW = 3;
+    public static final int TRANSFER = 4;
     public static final int LOGOUT = 5;
-    public static final int LOGOUT = 4;
 
     public static final int INVALID = 0;
     public static final int INSUFFICIENT = 1;
     public static final int SUCCESS = 2;
-    public static final int MAXIMUM = 3;
-    public static final int INVALID_AMOUNT = 4;
 
     public static final int FIRST_NAME_MIN_WIDTH = 1;
     public static final int FIRST_NAME_WIDTH = 20;
     public static final int LAST_NAME_MIN_WIDTH = 1;
     public static final int LAST_NAME_WIDTH = 30;
-
-    public static final int PIN_WIDTH = 4;
-    public static final int PIN_MIN = 1000;
-    public static final int PIN_MAX = 9999;
-
-    public static final int ACCOUNT_NO_WIDTH = 9;
-    public static final long ACCOUNT_NO_MIN = 100000001;
-    public static final long ACCOUNT_NO_MAX = 999999999;
-
-    public static final int BALANCE_WIDTH = 15;
-    public static final double BALANCE_MIN = 0.00;
-    public static final double BALANCE_MAX = 999999999999.99;
-
-    public static final double TRANSFER_MIN = 0.00;
-
-    boolean session = true;
-    String accountNoString = "";
-    int pin;
 
     public ATM() {
         this.in = new Scanner(System.in);
@@ -47,6 +29,7 @@ public class ATM {
         this.bank = new Bank();
       } catch (IOException e) {
      // cleanup any resources (i.e., the Scanner) and exit
+        in.close();
       }
     }
 
