@@ -35,7 +35,7 @@ public class BankAccount {
         return accountNo;
     }
 
-    public double getBalance() {
+    public String getBalance() {
       NumberFormat currency = NumberFormat.getCurrencyInstance();
 
       return currency.format(balance);
@@ -49,7 +49,7 @@ public class BankAccount {
         return accountHolder;
     }
 
-    public void deposit(double amount) {
+    public int deposit(double amount) {
       if (amount <= 0) {
           return ATM.INVALID;
       } else {
@@ -59,7 +59,7 @@ public class BankAccount {
         return ATM.SUCCESS;
     }
 
-    public void withdraw(double amount) {
+    public int withdraw(double amount) {
       if (amount <= 0) {
             return ATM.INVALID;
         } else if (amount > balance) {
